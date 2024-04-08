@@ -7,7 +7,6 @@
 <section>
     
     <div class="container my-4">
-        @if ($errors->any())
         <a href="{{ route('admin.projects.index') }}" class="my-4 btn btn-primary"><i class="fa-solid fa-table me-1">
         </i> Torna alla Lista
     </a>
@@ -15,6 +14,7 @@
     
     <h1>Modifica Project</h1>
     
+    @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -29,19 +29,30 @@
             @csrf
 
             <div class="col-6">
-                <label for="title" class="form-label">TITOLO</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $project['title']) }}">
+                <div class="row">
+                    <div class="col-12">
+
+                        <label for="title" class="form-label">TITOLO</label>
+                        <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $project['title']) }}">
+                        
+                        <label for="type_id" class="form-label d-block">TIPO</label>
+                        <select name="type_id" id="type_id">
+                            <option value="" class="d-inline-block"> Seleziona un Tipo</option>
+                            @foreach ($types as $type)
+                            <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->label }}</option>
+                            
+                            @endforeach
+                        </select>            
+                    </div>
+                </div>
             </div>
 
             <div class="col-6">
-                <label for="type_id" class="form-label d-block">TIPO</label>
-                <select name="type_id" id="type_id">
-                    <option value="" class="d-inline-block"> Seleziona un Tipo</option>
-                    @foreach ($types as $type)
-                    <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->label }}</option>
-                        
-                    @endforeach
-                </select>            
+                @foreach ($technologies as $technology)
+                <input {{ $project->technologies->contains($technology) ? 'checked' : '' }} type="checkbox" name="technologies[]" id="technologies-{{ $technology->id }}" value="{{ $technology->id }}" class="form-check-input">
+                <label for="technologies-{{ $technology->id }}" class="form-check-label">{{ $technology->label }}</label>
+            @endforeach
+
             </div>
 
             <div class="col-12">

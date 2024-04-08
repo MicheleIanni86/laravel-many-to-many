@@ -18,6 +18,7 @@
                 <th>ID</th>
                 <th>TITOLO</th>
                 <th>TIPO</th>
+                <th>TECNOLOGIE</th>
                 <th>SLUG</th>
                 <th>ESTRATTO</th>
                 <th>AUTORE</th>
@@ -32,6 +33,7 @@
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->title }}</td>
                     <td>{!! $project->type->getBadge() !!}</td>
+                    <td>{{ $project->getTechnologiesToText() }}</td>
                     <td>{{ $project->slug }}</td>
                     <td>{{ $project->content }}</td>    
                     <td><strong>{{ $project->user->name }}</strong></td>

@@ -28,19 +28,30 @@
             @csrf
 
             <div class="col-6">
-                <label for="title" class="form-label">TITOLO</label>
-                <input type="text" name="title" id="title" class="form-control" >
+                <div class="row">
+                    <div class="col-12">
+                        
+                        <label for="title" class="form-label">TITOLO</label>
+                        <input type="text" name="title" id="title" class="form-control" >
+                        
+                        <label for="type_id" class="form-label d-block">TIPO</label>
+                        <select name="type_id" id="type_id">
+                            <option value="" class="d-inline-block"> Seleziona un Tipo</option>
+                            @foreach ($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->label }}</option>
+                            
+                            @endforeach
+                        </select>
+                    
+                    </div>
+                </div>
             </div>
 
             <div class="col-6">
-                <label for="type_id" class="form-label d-block">TIPO</label>
-                <select name="type_id" id="type_id">
-                    <option value="" class="d-inline-block"> Seleziona un Tipo</option>
-                    @foreach ($types as $type)
-                    <option value="{{ $type->id }}">{{ $type->label }}</option>
-                        
+                    @foreach ($technologies as $technology)
+                        <input type="checkbox" name="technologies[]" id="technologies-{{ $technology->id }}" value="{{ $technology->id }}" class="form-check-input">
+                        <label for="technologies-{{ $technology->id }}" class="form-check-label">{{ $technology->label }}</label>
                     @endforeach
-                </select>
             </div>
 
             <div class="col-12">

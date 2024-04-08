@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Technology;
 use App\Models\Type;
 use Doctrine\DBAL\Types\Types;
 use Illuminate\Http\Request;
@@ -36,7 +37,8 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::all();
-        return view('admin.projects.create', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -52,11 +54,15 @@ class ProjectController extends Controller
         $data = $request->all();
 
         $project = new Project;
+
+        
         $project->fill($data);
         $project->user_id = Auth::id();
         $project->slug = Str::slug($project->title);
         $project->save();
-
+        
+        $project->technologies()->attach($data['technologies']);
+        
         return redirect()->route('admin.projects.show', $project);
     }
 
@@ -81,7 +87,8 @@ class ProjectController extends Controller
     {
         
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**

@@ -25,6 +25,8 @@
             <br>
             <h3>Contenuto:</h3>
             <p>{{ $project['content'] }}</p>
+            <h3>Tecnologie usate:</h3>
+            <p>{{ $project->getTechnologiesToText() }}</p>
         </div>
             
 

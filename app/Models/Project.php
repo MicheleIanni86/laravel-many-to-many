@@ -20,5 +20,11 @@ class Project extends Model
         public function user(){
             return $this->belongsTo(User::class);
         }
+
+        public function getTechnologiesToText() 
+        {
+            return implode(', ', $this->technologies->pluck('label')->toArray());
+        }
 }
+
 

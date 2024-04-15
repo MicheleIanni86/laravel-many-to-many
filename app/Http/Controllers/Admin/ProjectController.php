@@ -52,20 +52,33 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        // valido la richiesta
         $request->validated();
 
+        // recupero i dati della richiesta
         $data = $request->all();
 
-        Storage::put('uploads/projects', $data["image"]);
+        // instanzio un nuovo project
+        $project = new Project;      
 
-        $project = new Project;
-
-        
+        // fillo il progetto con i dati del form
         $project->fill($data);
+
+        // lo lego all'utente loggato
         $project->user_id = Auth::id();
+
+        // genero lo slug
         $project->slug = Str::slug($project->title);
+
+        // gestisco l'immaine erecupero il path
+        $img_path = Storage::put('uploads/projects', $data["image"]);
+        $project->image = $img_path;
+
+        // salvo il posto in DataBase
         $project->save();
         
+
+        //  relaziono il progetto alle tecnologie associate
         if (array_key_exists('technologies', $data)) {
 
             $project->technologies()->attach($data['technologies']);

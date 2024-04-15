@@ -27,6 +27,12 @@
             <p>{{ $project['content'] }}</p>
             <h3>Tecnologie usate:</h3>
             <p>{{ $project->getTechnologiesToText() }}</p>
+
+            @if(!empty($project->image))
+
+            <img src="{{ asset('storage/' . $project->image) }}" alt="">
+
+            @endif
         </div>
             
 

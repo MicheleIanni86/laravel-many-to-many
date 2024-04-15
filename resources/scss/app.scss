@@ -9,3 +9,25 @@
         flex-grow: 1;
     }
 }
+
+.preview-image {
+    position: relative;
+
+    .delete-button {
+        position: absolute;
+        top: 25px;
+        left: 10px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: black;
+        color: white;
+
+        cursor: pointer;
+    }
+}

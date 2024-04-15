@@ -162,7 +162,19 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if(!empty($project->iamge)) {
+            Storage::delete($project->image);
+        }
         $project->delete();
         return redirect()->back();
     }
+
+    public function destroyImg(Project $project)
+    {
+        Storage::delete($project->image);
+        $project->image = null;
+        $project->save();
+        return redirect()->back();
+    }
+
 }

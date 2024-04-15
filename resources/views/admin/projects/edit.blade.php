@@ -64,6 +64,13 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Immagine Project</label>
                     <input type="file" name="image" id="image" class="form-control">
+
+                        @if (!empty($project->image))
+                        <div class="preview-image">
+                            <div class="delete-button">x</div>
+                            <img class="img-fluid mt-3" src="{{ asset('storage/' . $project->image) }}" alt="">
+                        </div>
+                        @endif
                 </div>
             </div>
 
@@ -75,6 +82,10 @@
             </div>
 
         </form>
+        <form action="{{ route('admin.projects.destroy-img', $project) }}" class="d-none" method="POST" id="delete-image-form">
+            @method('DELETE')
+            @csrf
+        </form>
     </div>
 
 </section>
@@ -82,4 +93,15 @@
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endsection
+
+@section('js')
+    <script>
+        const deleteImageButton = document.querySelector('.delete-button');
+        const deleteImageForm = document.querySelector('#delete-image-form');
+
+        deleteImageButton.addEventListener('click', () => {     
+            deleteImageForm.submit();
+        })
+    </script>
 @endsection

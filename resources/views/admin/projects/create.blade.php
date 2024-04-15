@@ -64,6 +64,8 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Immagine Project</label>
                     <input type="file" name="image" id="image" class="form-control">
+                    
+
                 </div>
             </div>
 

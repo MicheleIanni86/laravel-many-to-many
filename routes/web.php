@@ -31,6 +31,8 @@ Route::middleware('auth')
       ->name('dashboard');
 
       Route::resource('projects', ProjectController::class);
+      Route::delete('/projects/{project}/delete-img', [ProjectController::class, 'destroyImg'])->name('projects.destroy-img');
+      
       Route::resource('types', TypeController::class);
 
   });

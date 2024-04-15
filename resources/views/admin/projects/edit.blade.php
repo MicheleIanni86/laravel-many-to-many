@@ -24,7 +24,7 @@
     </div>
         
     @endif
-        <form action="{{ route('admin.projects.update', $project) }}" class="row g-3" method="POST">
+        <form action="{{ route('admin.projects.update', $project) }}" class="row g-3" method="POST" enctype="multipart/form-data">
             @method('PATCH')
             @csrf
 
@@ -58,6 +58,13 @@
             <div class="col-12">
                 <label for="content" class="form-label">CONTENUTO</label>
                 <textarea type="text" name="content" id="content" class="form-control" rows="5">{{ old('content', $project['content']) }}</textarea>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Immagine Project</label>
+                    <input type="file" name="image" id="image" class="form-control">
+                </div>
             </div>
 
             <div class="col-12">

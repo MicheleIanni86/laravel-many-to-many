@@ -71,8 +71,11 @@ class ProjectController extends Controller
         $project->slug = Str::slug($project->title);
 
         // gestisco l'immaine erecupero il path
+        // se è arrivata una nuova immagine
+        if(Arr::exists($data, "image")) {
         $img_path = Storage::put('uploads/projects', $data["image"]);
         $project->image = $img_path;
+        }
 
         // salvo il posto in DataBase
         $project->save();
@@ -127,6 +130,20 @@ class ProjectController extends Controller
         
         $project->fill($data);
         $project->slug = Str::slug($project->title);
+        
+        
+        // se è arrivata una nuova immagine
+        if(Arr::exists($data, "image")) {
+            // se ce n'era una prima
+            if(!empty($project->image)){
+                // la elimino
+                Storage::delete($project->image);
+            } 
+            
+            // salva la nuova image
+            $img_path = Storage::put('uploads/projects', $data["image"]);
+            $project->image = $img_path;
+        }
         $project->save();
 
         if (Arr::exists($data, 'technologies')) {

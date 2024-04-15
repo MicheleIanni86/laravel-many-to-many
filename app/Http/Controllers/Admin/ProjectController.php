@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Mail\CreatedProjectMail;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -13,6 +14,7 @@ use Doctrine\DBAL\Types\Types;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
@@ -86,6 +88,9 @@ class ProjectController extends Controller
 
             $project->technologies()->attach($data['technologies']);
         }
+
+        // invio una mail di conferma creazione
+        Mail::to('utente@mail.it')->send(new CreatedProjectMail);
 
         return redirect()->route('admin.projects.show', $project);
     }

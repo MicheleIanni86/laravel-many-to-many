@@ -24,13 +24,13 @@
     </div>
         
     @endif
-        <form action="{{ route('admin.projects.store') }}" class="row g-3" method="POST">
+        <form action="{{ route('admin.projects.store') }}" class="row g-3" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="col-6">
                 <div class="row">
                     <div class="col-12">
-                        
+                        <div class></div>
                         <label for="title" class="form-label">TITOLO</label>
                         <input type="text" name="title" id="title" class="form-control" >
                         
@@ -59,12 +59,21 @@
                 <textarea type="text" name="content" id="content" class="form-control" rows="5"></textarea>
             </div>
 
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Immagine Project</label>
+                    <input type="file" name="image" id="image" class="form-control">
+                </div>
+            </div>
+
             <div class="col-12">
                 <button class="btn btn-success">
                     <i class="fa-solid fa-floppy-disk me-1"></i>
                         Salva                
                 </button>
             </div>
+
 
         </form>
     </div>

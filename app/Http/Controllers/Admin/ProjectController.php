@@ -12,6 +12,7 @@ use App\Models\Type;
 use Doctrine\DBAL\Types\Types;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
@@ -54,6 +55,8 @@ class ProjectController extends Controller
         $request->validated();
 
         $data = $request->all();
+
+        Storage::put('uploads/projects', $data["image"]);
 
         $project = new Project;
 
